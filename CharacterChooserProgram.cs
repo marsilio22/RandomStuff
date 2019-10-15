@@ -4,11 +4,14 @@ using System.Collections.Generic;
 namespace CharacterChooser
 {
     /// <summary>
-    /// A random character chooser for smash, or whatever I guess
+    /// Program for choosing teams of characters on Smash
     /// </summary>
-    class Program
+    public class Chooser
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Main entry point for the console application
+        /// </summary>
+        static void Main()
         {
             var bigiftrue = true;
             Random thing = new Random();
@@ -23,10 +26,10 @@ namespace CharacterChooser
             {
                 foreach (var team in teams)
                 {
-                    var characters = DoList(thing);
-                    PrintThingForTeam(team, characters);
+                    var characters = Determiner.DetermineTeam(thing);
+                    Determiner.PrintThingForTeam(team, characters);
                 }
-                
+
                 var end = Console.ReadLine();
                 if (string.Equals(end, "wilfsucks", StringComparison.OrdinalIgnoreCase))
                 {
@@ -34,21 +37,35 @@ namespace CharacterChooser
                 }
             }
         }
+    }
 
-        private static void PrintThingForTeam(string teamColour, List<Character> chars)
+    public static class Determiner
+    {
+
+        /// <summary>
+        /// For a given team colour and collection of characters, print this to the console.
+        /// </summary>
+        /// <param name="teamName">Team Name</param>
+        /// <param name="chars">Characters</param>
+        public static void PrintThingForTeam(string teamName, List<Character> chars)
         {
             foreach (var character in chars)
             {
-                Console.WriteLine($"{teamColour} team picks: {character}");
+                Console.WriteLine($"{teamName} team picks: {character}");
             }
         }
 
-        private static List<Character> DoList(Random thing)
+        /// <summary>
+        /// Given a RNG, create a list of Characters without replacement
+        /// </summary>
+        /// <param name="rng">Random Number Generator</param>
+        /// <returns>List of <see cref="Character"/></returns>
+        public static List<Character> DetermineTeam(Random rng)
         {
             List<Character> characters = new List<Character>();
             while (characters.Count < 3)
             {
-                Character charc = (Character) thing.Next(8);
+                Character charc = (Character) rng.Next(Enum.GetNames(typeof(Character)).Length);
                 if (characters.Contains(charc))
                 {
                     continue;
@@ -61,15 +78,15 @@ namespace CharacterChooser
         }
     }
 
-    enum Character
+    public enum Character
     {
-        Mario = 0,
-        DarkPit = 1,
-        DuckHuntDuo = 2,
-        Mewtwo = 3,
-        Incineroar = 4,
-        ZeroSuitSamus = 5,
-        MrGameAndWatch = 6,
-        Palutena = 7
+        Mario = 0, // Justin
+        DarkPit = 1, // Wilf
+        DuckHuntDuo = 2, // James
+        Mewtwo = 3, // Michael
+        Incineroar = 4, // Luce
+        ZeroSuitSamus = 5, // Chris
+        MrGameAndWatch = 6, // Paul 
+        Palutena = 7 // Adrian
     }
 }
