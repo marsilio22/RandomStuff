@@ -13,7 +13,7 @@ namespace CharacterChooser
         /// </summary>
         static void Main()
         {
-            var bigiftrue = true;
+            var bigiftrue = true; // bants
             Random thing = new Random();
 
             var teams = new List<string>()
@@ -80,13 +80,13 @@ namespace CharacterChooser
 
     public enum Character
     {
-        Mario = 0, // Justin
-        DarkPit = 1, // Wilf
-        DuckHuntDuo = 2, // James
-        Mewtwo = 3, // Michael
-        Incineroar = 4, // Luce
-        ZeroSuitSamus = 5, // Chris
-        MrGameAndWatch = 6, // Paul 
-        Palutena = 7 // Adrian
+        Mario = 0,
+        DarkPit = 1,
+        DuckHuntDuo = 2,
+        Mewtwo = 3,
+        Incineroar = 4,
+        ZeroSuitSamus = 5,
+        MrGameAndWatch = 6,
+        Palutena = 7
     }
 }
