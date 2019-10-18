@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace CharacterChooser
 {
@@ -13,20 +15,33 @@ namespace CharacterChooser
         /// </summary>
         static void Main()
         {
-            var bigiftrue = true; // bants
-            Random thing = new Random();
+            Console.Write("How many teams are there: ");
+            string numberOfTeams = Console.ReadLine();
 
-            var teams = new List<string>()
+            Console.Write("How many characters per team: ");
+            string numberOfCharacters = Console.ReadLine();
+
+            var teamColours = new List<string> { "Red", "Blue", "Green", "Yellow" };
+            var teams = new List<string>();
+
+            if (int.TryParse(numberOfTeams, out int result) && result <= teamColours.Count && int.TryParse(numberOfCharacters, out int teamSize) && teamSize <= Enum.GetNames(typeof(Character)).Length)
             {
-                "Red",
-                "Blue"
-            };
+                teams = teamColours.GetRange(0, result);
+            }
+            else
+            {
+                Console.WriteLine("you've done a bad there...");
+                Console.ReadLine();
+                return;
+            }
+            
+            Random rng = new Random();
 
-            while (bigiftrue)
+            while (true)
             {
                 foreach (var team in teams)
                 {
-                    var characters = Determiner.DetermineTeam(thing);
+                    var characters = Determiner.DetermineTeam(rng, teamSize);
                     Determiner.PrintThingForTeam(team, characters);
                 }
 
@@ -59,11 +74,12 @@ namespace CharacterChooser
         /// Given a RNG, create a list of Characters without replacement
         /// </summary>
         /// <param name="rng">Random Number Generator</param>
+        /// <param name="teamSize">Number of Characters per team</param>
         /// <returns>List of <see cref="Character"/></returns>
-        public static List<Character> DetermineTeam(Random rng)
+        public static List<Character> DetermineTeam(Random rng, int teamSize)
         {
             List<Character> characters = new List<Character>();
-            while (characters.Count < 3)
+            while (characters.Count < teamSize)
             {
                 Character charc = (Character) rng.Next(Enum.GetNames(typeof(Character)).Length);
                 if (characters.Contains(charc))
@@ -82,11 +98,17 @@ namespace CharacterChooser
     {
         Mario = 0,
         DarkPit = 1,
-        DuckHuntDuo = 2,
+        PacMan = 2,
         Mewtwo = 3,
         Incineroar = 4,
         ZeroSuitSamus = 5,
         MrGameAndWatch = 6,
-        Palutena = 7
+        Palutena = 7,
+        DarkSamus = 8,
+        Jigglypuff = 9,
+        NormalSamus = 10,
+        Greninja = 11,
+        PokemonTrainer = 12,
+        ROB = 13
     }
 }
